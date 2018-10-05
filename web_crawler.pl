@@ -1,30 +1,11 @@
-use Modern::Perl; 
-#Ein einfacher webcrawler mit LWP  
-use strict; 
+use Modern::Perl;
 use LWP::Simple;
 
-my $url = shift || die 'Es gibt keine url';
-my $max = 100;
-
-my $html = get($url);
-
-my @urls; 
-while ($html =~s/(http:\/\/\s+)[">]//)
-{
-    push @urls, $1; 
-}
-mkdir "web", 0755;
-open(URLMAP, "web/url.map") || die 'konnte nicht geöffnet werden';
-my $count = 0; 
-
-for (my $i = 0; $i<$max; $i++){
-    my $source = $urls[int(rand($#urls+1))]; 
-    getstore($source, "web$count.html"); 
-    print URLMAP "$count\t$source\n";
-    $count++; 
-    print STDERR "Getting $count: $source\n"; 
+my $start_url = $ARGV[0];
+if (not defined $start_url) {
+	say "Enter a valid URL!!!";
+	die;
 }
 
-close(URLMAP); 
-
+say "We are now entering " . $start_url;
 

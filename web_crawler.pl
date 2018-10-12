@@ -2,7 +2,7 @@ use Modern::Perl;
 use LWP::Simple;
 use strict;
 use warnings;  
-use Data::Dumper qw(Dumper);
+use Data::Dump qw(dump);
 
 ####################################
 #MAIN
@@ -26,11 +26,19 @@ sub get_recursive {
 
 	say "Now getting $url";
 	my $html = get($url);
-	say "got " . substr($html, 0, 20);
 
 	my ($title) = ($html =~ m/<title.*>(.*)<\/title>/);
     say $title; 
 
-	
-	# SAVE THE PAGE!!!!!
+    my @next_url = ($html =~ m/<a[^>]*href=\"([^\"]*)\"/g);
+    say length @next_url; 
+    dump @next_url;
+
+    if ($depth > 0) {
+        foreach my $element (@next_url){
+            get_recursive($element, $depth-1);
+        }
+    }
+    
+    # SAVE THE PAGE!!!!!
 }

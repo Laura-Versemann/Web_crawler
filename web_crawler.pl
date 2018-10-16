@@ -31,8 +31,12 @@ sub get_recursive {
     say $title; 
 
     my @next_url = ($html =~ m/<a[^>]*href=\"([^\"]*)\"/g);
-    say length @next_url; 
+    say scalar@next_url; 
     dump @next_url;
+
+    open(HTMLDATEI, ">>webpagecontent.html") || die 'Could not open urlmap'; 
+    print HTMLDATEI $html; 
+    close (HTMLDATEI);  
 
     if ($depth > 0) {
         foreach my $element (@next_url){
@@ -40,5 +44,6 @@ sub get_recursive {
         }
     }
     
-    # SAVE THE PAGE!!!!!
+    # ideen:
+    #Html speichern 
 }

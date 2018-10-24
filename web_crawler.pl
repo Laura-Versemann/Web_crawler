@@ -19,7 +19,7 @@ say "We are now entering " . $start_url;
 
 get_recursive($start_url, $start_depth);
 
-
+my $count = 0;
 
 ######### FUNCTIONS ###########
 
@@ -36,14 +36,14 @@ sub get_recursive {
     say scalar@next_url; 
     dump @next_url;
 
-    open(HTMLDATEI, ">>webpagecontent.html") || die 'Could not open urlmap'; 
-    print HTMLDATEI $html; 
-    close (HTMLDATEI);  
+    open(my $outfile, '>', "webpagecontent$count.html") || die 'Could not open urlmap'; 
+    print $outfile $html; 
+    close ($outfile);  
 
     if ($depth > 0) {
         foreach my $element (@next_url){
             get_recursive($element, $depth-1);
         }
     }
-    
+    $count++;
 }

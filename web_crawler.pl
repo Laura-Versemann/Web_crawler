@@ -12,6 +12,10 @@ my $start_url = shift @ARGV;
 if(not defined $start_url) { die 'Please enter startURL and depth'; }
 my $start_depth = shift @ARGV;
 if(not defined $start_depth) { die 'Please enter startURL and depth'; }
+my $dest_path = shift @ARGV;
+if(not defined $dest_path) { die 'Please enter startURL and depth'; }
+
+mkdir $dest_path;
 
 say "URL=" . $start_url;
 say "DEPTH=" . $start_depth;
@@ -36,7 +40,7 @@ sub get_recursive {
     say scalar@next_url; 
     dump @next_url;
 
-    open(my $outfile, '>', "webpagecontent$count.html") || die 'Could not open urlmap'; 
+    open(my $outfile, '>', "$dest_path/$title.html") || die 'Could not open urlmap'; 
     print $outfile $html; 
     close ($outfile);  
 

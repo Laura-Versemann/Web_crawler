@@ -8,8 +8,10 @@ use Data::Dump qw(dump);
 #MAIN
 ####################################
 
-my $start_url = shift @ARGV || die 'Please enter startURL and depth';
-my $start_depth = shift @ARGV || die 'Please enter startURL and depth';
+my $start_url = shift @ARGV;
+if(not defined $start_url) { die 'Please enter startURL and depth'; }
+my $start_depth = shift @ARGV;
+if(not defined $start_depth) { die 'Please enter startURL and depth'; }
 
 say "URL=" . $start_url;
 say "DEPTH=" . $start_depth;

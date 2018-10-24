@@ -46,6 +46,4 @@ sub get_recursive {
         }
     }
     
-    # ideen:
-    #Html speichern 
 }
